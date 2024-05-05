@@ -1,187 +1,187 @@
-version: '3'
+# version: '3'
 
-services:
-  Api-gateway:
-    image: api_gateway:latest
-    container_name: api_gateway
-    ports:
-      - "8000:8000"
-    networks:
-      - my_network
-    volumes:
-      - ./Api-gateway:/src/Api-gateway
-      - /src/Api-gateway/node_modules
+# services:
+#   Api-gateway:
+#     image: api_gateway:latest
+#     container_name: api_gateway
+#     ports:
+#       - "8000:8000"
+#     networks:
+#       - my_network
+#     volumes:
+#       - ./Api-gateway:/src/Api-gateway
+#       - /src/Api-gateway/node_modules
 
-  rabbitmq:
-    image: rabbitmq:latest
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-    healthcheck:
-      test: [ "CMD", "rabbitmqctl", "status" ]
-      timeout: 15s
-      retries: 3
+#   rabbitmq:
+#     image: rabbitmq:latest
+#     container_name: rabbitmq
+#     ports:
+#       - "5672:5672"
+#     healthcheck:
+#       test: [ "CMD", "rabbitmqctl", "status" ]
+#       timeout: 15s
+#       retries: 3
 
-  Dish-Service:
-    image: dish_service:latest
-    container_name: dish_service
-    ports:
-      - "3001:3001"
-    restart: always
-    volumes:
-      - ./Dish-Service:/src/Dish-Service
-      - /src/Dish-Service/node_modules
-    command: npm start
-    networks:
-      - my_network
-    depends_on:
-      - DB-Dish-Service
-      - rabbitmq
+#   Dish-Service:
+#     image: dish_service:latest
+#     container_name: dish_service
+#     ports:
+#       - "3001:3001"
+#     restart: always
+#     volumes:
+#       - ./Dish-Service:/src/Dish-Service
+#       - /src/Dish-Service/node_modules
+#     command: npm start
+#     networks:
+#       - my_network
+#     depends_on:
+#       - DB-Dish-Service
+#       - rabbitmq
 
-  DB-Dish-Service:
-    image: postgres:latest
-    ports:
-      - "5555:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Thong2003.
-      POSTGRES_DB: Dish_DB
-    depends_on:
-      - rabbitmq
+#   DB-Dish-Service:
+#     image: postgres:latest
+#     ports:
+#       - "5555:5432"
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: Thong2003.
+#       POSTGRES_DB: Dish_DB
+#     depends_on:
+#       - rabbitmq
 
-  Order-Service:
-    image: order_service:latest
-    container_name: order_service
-    ports:
-      - "3002:3002"
-    restart: always
-    volumes:
-      - ./order-Service:/src/Order-Service
-      - /src/Order-Service/node_modules
-    command: npm start
-    networks:
-      - my_network
-    depends_on:
-      - DB-Order-Service
-      - rabbitmq
+#   Order-Service:
+#     image: order_service:latest
+#     container_name: order_service
+#     ports:
+#       - "3002:3002"
+#     restart: always
+#     volumes:
+#       - ./order-Service:/src/Order-Service
+#       - /src/Order-Service/node_modules
+#     command: npm start
+#     networks:
+#       - my_network
+#     depends_on:
+#       - DB-Order-Service
+#       - rabbitmq
 
-  DB-Order-Service:
-    image: postgres:latest
-    ports:
-      - "5556:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Thong2003.
-      POSTGRES_DB: Order_DB
-    depends_on:
-      - rabbitmq
+#   DB-Order-Service:
+#     image: postgres:latest
+#     ports:
+#       - "5556:5432"
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: Thong2003.
+#       POSTGRES_DB: Order_DB
+#     depends_on:
+#       - rabbitmq
 
-  User-Service:
-    image: user_service:latest
-    container_name: user_service
-    ports:
-      - "3003:3003"
-    restart: always
-    volumes:
-      - ./User-Service:/src/User-Service
-      - /src/User-Service/node_modules
-    command: npm start
-    networks:
-      - my_network
-    depends_on:
-      - DB-User-Service
-      - rabbitmq
+#   User-Service:
+#     image: user_service:latest
+#     container_name: user_service
+#     ports:
+#       - "3003:3003"
+#     restart: always
+#     volumes:
+#       - ./User-Service:/src/User-Service
+#       - /src/User-Service/node_modules
+#     command: npm start
+#     networks:
+#       - my_network
+#     depends_on:
+#       - DB-User-Service
+#       - rabbitmq
 
-  DB-User-Service:
-    image: postgres:latest
-    ports:
-      - "5557:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Thong2003.
-      POSTGRES_DB: User_DB
-    depends_on:
-      - rabbitmq
+#   DB-User-Service:
+#     image: postgres:latest
+#     ports:
+#       - "5557:5432"
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: Thong2003.
+#       POSTGRES_DB: User_DB
+#     depends_on:
+#       - rabbitmq
 
-  # Dish-Service:
-  #   image: dish_service:latest
-  #   container_name: dish_service
-  #   ports:
-  #     - "3001:3001"
-  #   restart: always
-  #   volumes:
-  #     - ./Dish-Service:/src/Dish-Service
-  #     - /src/Dish-Service/node_modules
-  #   command: npm start
-  #   networks:
-  #     - my_network
-  #   environment:
-  #     - RABBITMQ_HOST=rabbitmq
-  #     - RABBITMQ_PORT=5672
-  #     - POSTGRES_HOST=localhost
-  #     - POSTGRES_PORT=5432
-  #     - POSTGRES_DB=Dish_DB
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=Thong2003.
-  #   depends_on:
-  #     - rabbitmq
+#   # Dish-Service:
+#   #   image: dish_service:latest
+#   #   container_name: dish_service
+#   #   ports:
+#   #     - "3001:3001"
+#   #   restart: always
+#   #   volumes:
+#   #     - ./Dish-Service:/src/Dish-Service
+#   #     - /src/Dish-Service/node_modules
+#   #   command: npm start
+#   #   networks:
+#   #     - my_network
+#   #   environment:
+#   #     - RABBITMQ_HOST=rabbitmq
+#   #     - RABBITMQ_PORT=5672
+#   #     - POSTGRES_HOST=localhost
+#   #     - POSTGRES_PORT=5432
+#   #     - POSTGRES_DB=Dish_DB
+#   #     - POSTGRES_USER=postgres
+#   #     - POSTGRES_PASSWORD=Thong2003.
+#   #   depends_on:
+#   #     - rabbitmq
 
-  # Order-Service:
-  #   image: order_service:latest
-  #   container_name: order_service
-  #   ports:
-  #     - "3002:3002"
-  #   restart: always
-  #   volumes:
-  #     - ./Order-Service:/src/Order-Service
-  #     - /src/Order-Service/node_modules
-  #   command: npm start
-  #   networks:
-  #     - my_network
-  #   environment:
-  #     - RABBITMQ_HOST=rabbitmq
-  #     - RABBITMQ_PORT=5672
-  #     - POSTGRES_HOST=localhost
-  #     - POSTGRES_PORT=5432
-  #     - POSTGRES_DB=Order_DB
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=Thong2003.
-  #   depends_on:
-  #     - rabbitmq
+#   # Order-Service:
+#   #   image: order_service:latest
+#   #   container_name: order_service
+#   #   ports:
+#   #     - "3002:3002"
+#   #   restart: always
+#   #   volumes:
+#   #     - ./Order-Service:/src/Order-Service
+#   #     - /src/Order-Service/node_modules
+#   #   command: npm start
+#   #   networks:
+#   #     - my_network
+#   #   environment:
+#   #     - RABBITMQ_HOST=rabbitmq
+#   #     - RABBITMQ_PORT=5672
+#   #     - POSTGRES_HOST=localhost
+#   #     - POSTGRES_PORT=5432
+#   #     - POSTGRES_DB=Order_DB
+#   #     - POSTGRES_USER=postgres
+#   #     - POSTGRES_PASSWORD=Thong2003.
+#   #   depends_on:
+#   #     - rabbitmq
   
-  # User-Service:
-  #   image: user_service:latest
-  #   container_name: user_service
-  #   ports:
-  #     - "3003:3003"
-  #   restart: always
-  #   volumes:
-  #     - ./User-Service:/src/User-Service
-  #     - /src/User-Service/node_modules
-  #   command: npm start
-  #   networks:
-  #     - my_network
-  #   environment:
-  #     - RABBITMQ_HOST=rabbitmq
-  #     - RABBITMQ_PORT=5672
-  #     - POSTGRES_HOST=localhost
-  #     - POSTGRES_PORT=5432
-  #     - POSTGRES_DB=User_DB
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD= Thong2003.
-  #   depends_on:
-  #     - rabbitmq
+#   # User-Service:
+#   #   image: user_service:latest
+#   #   container_name: user_service
+#   #   ports:
+#   #     - "3003:3003"
+#   #   restart: always
+#   #   volumes:
+#   #     - ./User-Service:/src/User-Service
+#   #     - /src/User-Service/node_modules
+#   #   command: npm start
+#   #   networks:
+#   #     - my_network
+#   #   environment:
+#   #     - RABBITMQ_HOST=rabbitmq
+#   #     - RABBITMQ_PORT=5672
+#   #     - POSTGRES_HOST=localhost
+#   #     - POSTGRES_PORT=5432
+#   #     - POSTGRES_DB=User_DB
+#   #     - POSTGRES_USER=postgres
+#   #     - POSTGRES_PASSWORD= Thong2003.
+#   #   depends_on:
+#   #     - rabbitmq
 
-  # postgres:
-  #   image: postgres:latest
-  #   environment:
-  #     POSTGRES_DB: Dish_DB, Order_DB, User_DB
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: Thong2003.
-  #   ports:
-  #     - "5432:5432"
-networks:
-  my_network:
-    driver: bridge
+#   # postgres:
+#   #   image: postgres:latest
+#   #   environment:
+#   #     POSTGRES_DB: Dish_DB, Order_DB, User_DB
+#   #     POSTGRES_USER: postgres
+#   #     POSTGRES_PASSWORD: Thong2003.
+#   #   ports:
+#   #     - "5432:5432"
+# networks:
+#   my_network:
+#     driver: bridge
 
       

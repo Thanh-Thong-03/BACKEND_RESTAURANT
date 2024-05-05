@@ -5,12 +5,17 @@ const Area = require('./area.model');
 const Table = sq.define("table", {
     table_id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
     },
     table_name: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    table_status: {
+      type: DataTypes.ENUM('Trống', 'Chưa thanh toán', 'Đã thanh toán'),
+      defaultValue: 'Trống'
     },
     is_deleted: {
         type: DataTypes.BOOLEAN,
@@ -27,8 +32,8 @@ const Table = sq.define("table", {
     }
 });
 
-Table.belongsTo(Area, {references: 'area_id'});
-Area.hasMany(Table, {references: 'area_id'});
+Table.belongsTo(Area, {foreignKey: 'area_id'});
+Area.hasMany(Table, {foreignKey: 'area_id'});
 
 // No need for the async function here, use regular function syntax
 function sync() {

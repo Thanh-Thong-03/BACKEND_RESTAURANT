@@ -4,6 +4,7 @@ const sq = require("../config/db");
 const Area = sq.define("area", {
   area_id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },

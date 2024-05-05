@@ -11,7 +11,7 @@ const User = sq.define("user", {
   },
   user_name: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   user_email: {
     type: DataTypes.STRING,
@@ -19,11 +19,11 @@ const User = sq.define("user", {
   },
   user_sex: {
     type: DataTypes.ENUM('Nam', 'Nữ'),    
-    allowNull: false,
+    allowNull: true,
   },
   user_birthday: {
     type: DataTypes.DATEONLY,
-    allowNull: false,
+    allowNull: true,
   },
   user_password: {
     type: DataTypes.STRING,
@@ -31,7 +31,7 @@ const User = sq.define("user", {
   },
   user_avatar: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   is_deleted: {
     type: DataTypes.BOOLEAN,
@@ -39,16 +39,12 @@ const User = sq.define("user", {
   },
   role_id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: "roles",
       key: "role_id",
     },
   },
-  admin: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  }
 });
 
 User.belongsTo(Role, { foreignKey: "role_id" });

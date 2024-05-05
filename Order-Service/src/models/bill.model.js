@@ -1,30 +1,30 @@
 const { DataTypes } = require("sequelize");
 const sq = require("../config/db");
-const Payment = require("./payment.model")
+// const Payment = require("./payment.model")
 const Table = require("./table.model")
 
-const Order = sq.define("order", {
-  order_id: {
+const Bill = sq.define("bill", {
+  bill_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  order_status: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  bill_status_paid: {
+    type: DataTypes.ENUM('Chưa Thanh Toán', 'Đã Thanh Toán', 'Đã Hủy'),
+    defaultValue: 'Chưa Thanh Toán'
   },
-  order_price: {
+  bill_status_completed: {
+    type: DataTypes.ENUM('Chưa Hoàn Thành', 'Đã Hoàn Thành'),
+    defaultValue: 'Chưa Hoàn Thành'
+  },
+  bill_price: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
   },
-  payment_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    reference: {
-      model: "payments",
-      key: "payment_id",
-    }
+  payment_method: {
+    type: DataTypes.ENUM('Tiền mặt', 'Chuyển Khoản'),
+    defaultValue: 'Tiền mặt'
   },
   staff_id: {
     type: DataTypes.INTEGER,
@@ -37,31 +37,28 @@ const Order = sq.define("order", {
   table_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    reference: {
+    references: {
       model: "tables",
       key: "table_id",
     }
   }
 });
 
-Order.belongsTo(Payment, {foreignKey: "payment_id"});
-Payment.hasMany(Order, {foreignKey: "payment_id"});
-
-Order.belongsTo(Table, {foreign: "table_id"});
-Table.hasMany(Order, {foreignKey: "table_id"});
+Bill.belongsTo(Table, {foreignKey: "table_id"});
+Table.hasMany(Bill, {foreignKey: "table_id"});
 
 // No need for the async function here, use regular function syntax
 function sync() {
-  Order.sync()
+  Bill.sync()
     .then(() => {
-      console.log("order Model synced");
+      console.log("bill Model synced");
     })
     .catch((error) => {
       console.error("Error syncing models:", error);
     });
   sq.sync()
     .then(() => {
-      console.log("Table Order created successfully");
+      console.log("Table bill created successfully");
     })
     .catch((error) => {
       console.error("Error creating table:", error);
@@ -70,4 +67,4 @@ function sync() {
 
 sync(); // Call the sync function
 
-module.exports = Order;
+module.exports = Bill;

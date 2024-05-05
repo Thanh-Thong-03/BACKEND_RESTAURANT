@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const middlewareController = {
+const authMiddleware = {
 
     verifyToken: (req, res, next) => {
         const token = req.headers.token;
@@ -8,9 +8,10 @@ const middlewareController = {
             const accessToken = token.split(" ")[1];
             jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
                 if(err){
-                    res.status(403).json("Token is not valid")
+                    return res.status(403).json("Token is not valid")
                 }
                 req.user = user;
+                console.log(req.user)
                 next();
             })
         }
@@ -20,15 +21,17 @@ const middlewareController = {
     },
 
     verifyTokenAndAdminAuth: (req, res, next) => {
-        middlewareController.verifyToken(req, res, () => {
-            if(req.user.id == req.params.id || req.user.admin){
+        authMiddleware.verifyToken(req, res, () => {
+            const role = req.user.role;
+            console.log('Role:' + role)
+            if(role == "Admin"){
                 next();
             }
             else {
-                res.status(403).json("You are not allowed to delete other")
+                res.status(403).json("You are not Admin")
             }
         })
     }
 }
 
-module.exports = middlewareController;
+module.exports = authMiddleware;

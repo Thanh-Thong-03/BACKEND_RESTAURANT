@@ -5,6 +5,7 @@ const catController = {
     const cat = req.body;
     try {
       const newCat = await catService.createCat(cat);
+      console.log(newCat);
       return res.status(200).json(newCat);
     } catch (error) {
       next(error);

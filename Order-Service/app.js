@@ -4,7 +4,12 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:10000', 'http://localhost:9000'],
+  credentials: true,
+  headers: ['Authorization', 'Content-Type'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
 
@@ -14,9 +19,13 @@ app.use(express.urlencoded({ extended:true }));
 //     return res.send('Message from oder service: ' + DishData.data)
 // })
 
-const orderRouter = require('./src/routes/order.route')
+const billRouter = require('./src/routes/bill.route')
+const tableRouter = require('./src/routes/table.route')
+const areaRouter = require('./src/routes/area.route')
 
-app.use('/order', orderRouter)
+app.use('/bill', billRouter)
+app.use('/table', tableRouter)
+app.use('/area', areaRouter)
 
 app.use((error,req,res,next) => {
     console.log(error);

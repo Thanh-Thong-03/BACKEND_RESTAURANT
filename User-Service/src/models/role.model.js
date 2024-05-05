@@ -8,10 +8,9 @@ const Role = sq.define("role", {
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    unique: true,
   },
   role_name: {
-    type: DataTypes.ENUM('Thu ngân', 'Bếp', 'Phục vụ'),    
+    type: DataTypes.STRING,    
     allowNull: false,
   },
   is_deleted: {

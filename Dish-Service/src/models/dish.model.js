@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sq = require("../config/db");
-const Cat = require("../models/cat.model")
+const Cat = require("./cat.model");
 
 const Dish = sq.define("dish", {
   dish_id: {
@@ -18,8 +18,12 @@ const Dish = sq.define("dish", {
     allowNull: true,
   },
   dish_price: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.DECIMAL(10,0),
     allowNull: false,
+  },
+  dish_status: { 
+    type: DataTypes.ENUM('Còn Món', 'Hết Món'),
+    defaultValue: 'Còn Món',
   },
   is_deleted: {
     type: DataTypes.BOOLEAN,

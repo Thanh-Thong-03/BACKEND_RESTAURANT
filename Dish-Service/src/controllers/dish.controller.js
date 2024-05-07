@@ -79,7 +79,7 @@ const dishController = {
         await dishService.deleteDish(dishId)
         return res.status(200).json({message: 'Dish is deleted'})
     } catch (error) {
-        next(error)
+        console.log(error)
     }
   },
 
@@ -115,6 +115,18 @@ const dishController = {
       await dishService.ConMon(dishId);
     } catch (error) {
       console.log(error)
+    }
+  },
+
+  async getDishByCat(req, res,) {
+    try {
+      const catId = req.params.id;
+      console.log(catId)
+      const dishes = await dishService.getDishByCat(catId)
+      console.log(dishes)
+      res.status(200).json(dishes)
+    } catch (err) {
+      console.log('LỖI Ở ĐÂY NÈ:'+err);
     }
   }
 };

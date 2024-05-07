@@ -17,7 +17,7 @@ const tableService = {
     //     return tablees;
     // },
 
-    async getTableId(tableId) {
+    async getTableById(tableId) {
         const table = await Table.findByPk(tableId, { include: Area });
         return table;
     },
@@ -54,9 +54,9 @@ const tableService = {
         return tables
     },
 
-    async updateToUnPaid(tableId) {
+    async updateTableStatus(tableId, updateTableData) {
       await Table.update(
-        {table_status: "Chưa thanh toán"},
+        updateTableData,
         { where: { table_id: tableId}}
       )
     }

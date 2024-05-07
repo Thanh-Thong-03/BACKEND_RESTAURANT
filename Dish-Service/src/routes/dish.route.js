@@ -13,6 +13,8 @@ router.route('/')
 
 router.get('/byName', dishController.getNameDish)
 
+router.get('/getDishByCat/:id', dishController.getDishByCat)
+
 router.get('/getAll', dishController.getAll)
 
 router.route('/:id')

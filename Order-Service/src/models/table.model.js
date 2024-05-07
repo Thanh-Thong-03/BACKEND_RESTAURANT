@@ -14,7 +14,7 @@ const Table = sq.define("table", {
         allowNull: false,
     },
     table_status: {
-      type: DataTypes.ENUM('Trống', 'Chưa thanh toán', 'Đã thanh toán'),
+      type: DataTypes.ENUM('Trống', 'Đang Phục Vụ'),
       defaultValue: 'Trống'
     },
     is_deleted: {

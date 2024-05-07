@@ -6,7 +6,7 @@ const tableController = {
       const tables = await tableService.getAllTables();
       return res.status(200).json(tables);
     } catch (error) {
-      next(error);
+      console.error(error);
     }
   },
 
@@ -16,14 +16,15 @@ const tableController = {
       const newTable = await tableService.createTable(table);
       return res.status(200).json(newTable);
     } catch (error) {
-      next(error);  
+      console.error(error);  
     }
   },
 
-  async getIdTable(req, res) {
+  async getTableById(req, res) {
     const tableId = req.params.id;
     try {
-      const Table = await tableService.getTableId(tableId);
+      const Table = await tableService.getTableById(tableId);
+      console.log(Table)
       if (Table) {
         return res.status(200).json(Table)
       } else {
@@ -69,10 +70,11 @@ const tableController = {
     }
   },
 
-  async updateToUnPaid(req, res) {
+  async updateTableStatus(req, res) {
     const tableId = req.params.id;
+    const updateTableData = req.body;
     try {
-      await tableService.updateToUnPaid(tableId)
+      await tableService.updateTableStatus(tableId, updateTableData)
     } catch(error) {
       console.log(error);
     }

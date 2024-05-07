@@ -11,7 +11,7 @@ const imgMiddleware = new ImageUploadMiddleware();
 
 router.route('/')
     .get(userController.getAllUser)
-    .post(authMiddleware.verifyTokenAndAdminAuth, imgMiddleware.uploadImage('user_avatar', 1), userController.createUser)
+    .post(imgMiddleware.uploadImage('user_avatar', 1), userController.createUser)
 
 router.get('/byname', userController.getNameUser)
 
@@ -28,6 +28,7 @@ router.post('/register', userController.register)
 router.post('/login', authController.login)
 router.post('/refresh', authController.requestRefreshToken)
 router.post('/logout', authMiddleware.verifyToken, authController.logout)
+
 // router.post('/forgotPassword', userController.forgotPassword)
 
 // router.post('/upload', userController.upload)

@@ -12,6 +12,7 @@ const dishService = {
   //   const dishes = await Dish.find({ dish_name: name });
   //   return dishes;
   // },
+
   async getAllDishes() {
     const dishes = await Dish.findAll({
       where: { is_deleted: false },
@@ -22,7 +23,7 @@ const dishService = {
 
   async getAll() {
     const dishes = await Dish.findAll({
-      where: { is_deleted: false, dish_status: 'Còn Món' },
+      where: { is_deleted: false, dish_status: "Còn Món" },
       include: Cat,
     });
     return dishes;
@@ -65,16 +66,27 @@ const dishService = {
   },
 
   async updateImg(id, urlImg) {
-    await Dish.update({ dish_img: urlImg}, { where: {dish_id: id} });
+    await Dish.update({ dish_img: urlImg }, { where: { dish_id: id } });
   },
 
   async HetMon(dishId) {
-    await Dish.update({ dish_status: 'Hết Món' }, { where: {dish_id: dishId}})
+    await Dish.update(
+      { dish_status: "Hết Món" },
+      { where: { dish_id: dishId } }
+    );
   },
 
   async ConMon(dishId) {
-    await Dish.update({ dish_status: 'Còn Món' }, { where: {dish_id: dishId}})
-  }
+    await Dish.update(
+      { dish_status: "Còn Món" },
+      { where: { dish_id: dishId } }
+    );
+  },
+
+  async getDishByCat(catId) {
+      const dishes = await Dish.findAll({ where: { cat_id: catId }, include: Cat });
+      return dishes;
+  },
 };
 
 module.exports = dishService;

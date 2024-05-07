@@ -10,6 +10,9 @@ router.route('/')
     .post(billController.createBill)
 
 router.get('/getAllUnCompleted', billController.getAllUnCompleted)
+router.get('/getBillByTableId/:id', billController.getBillByTableId)
+router.get('/getAllBillsUnPaid', billController.getAllBillsUnPaid)   
+router.get('/getBillsPaid', billController.getBillsPaid)
 
 router.route('/:id')
     .patch(billController.updateBill)

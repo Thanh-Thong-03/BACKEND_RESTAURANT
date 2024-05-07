@@ -55,6 +55,8 @@ const catController = {
       next(error);
     }
   },
+
+  
 };
 
 module.exports = catController;

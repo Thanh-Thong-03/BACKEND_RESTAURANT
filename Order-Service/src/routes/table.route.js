@@ -10,10 +10,10 @@ router.route('/')
 router.get('/byname', tableController.getNameTable)
 
 router.route('/:id')
-    .get(tableController.getIdTable)
+    .get(tableController.getTableById)
     .delete(tableController.deleteTable)
 
 router.get('/getTablesByArea/:id', tableController.getTablesByArea)
-router.put('/updateToUnPaid/:id', tableController.updateToUnPaid)
+router.patch('/updateTableStatus/:id', tableController.updateTableStatus)
 
 module.exports = router;

@@ -37,7 +37,7 @@ const catService = {
             { is_deleted: true },
             { where: { cat_id: catId } }
         );
-    }
+    },
 }
 
 module.exports = catService;

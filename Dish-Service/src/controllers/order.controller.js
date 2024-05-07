@@ -31,6 +31,7 @@ const orderController = {
             console.log(billId);
             const orderItems = await orderService.getAllOrderByBillId(billId);
             // await rabbitmq.sendMessage('queue2', orderItems)
+            console.log(orderItems)
             return res.status(200).json(orderItems);
           } catch (error) {
             console.log(error);
